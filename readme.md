@@ -1,2 +1,2 @@
-## 分布式事务框架
-- [EasyTransaction](https://github.com/QNJR-GROUP/EasyTransaction.git)[EasyTransaction]
+## 分布式事务框架EasyTransaction源码阅读 注释
+- [EasyTransaction](https://github.com/QNJR-GROUP/EasyTransaction.git)
