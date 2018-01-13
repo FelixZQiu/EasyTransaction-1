@@ -1,0 +1,98 @@
+spring:
+  application:
+    name: trx-test-service  # the same with com.yiqiniu.easytrans.test.Constant.APPID
+ 
+debug: true
+
+# RIBBON用，也可以直接开启Eureka
+trx-test-service:
+  ribbon:
+    listOfServers: localhost:8080
+    
+logging:
+  level:
+    root: info
+
+easytrans:
+  master:
+    zk:
+      zooKeeperUrl: localhost:2181
+  log:
+    kafka:
+      enabled: false
+    database:
+      enabled: true
+      logCleanEnabled: true
+      logReservedDays: 14
+      logCleanTime: 01:22:00
+      druid:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/translog?characterEncoding=UTF-8&useSSL=false
+        username: root
+        password: 123456
+  queue:
+    kafka:
+      enabled: true
+      produerCfg:
+        nativeCfg:
+          bootstrap.servers: localhost:9092
+          acks: all
+          retries: 0
+          batch.size: 16384
+          linger.ms: 1
+          buffer.memory: 3554432
+          key.serializer: org.apache.kafka.common.serialization.StringSerializer
+          value.serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      consumer-cfg:
+        reconsume: # when error occur,when the message will be reconsume.for efficent,please keep the array below small.
+#          - [3000,3] # retry every 3000 millseconds,for 3 times,after 3 time faliures will move to the next retry level
+#          - [60000,5] # retry every 1 minutes,for 3 times,after 3 time faliures will move to the next retry level
+#          - [300000,3] # retry every 5 minutes,for 3 times,after 3 time faliures will move to the next retry level
+#          - [3600000] # retry every 1 hour,forever
+          - [1000,1] # dead message queue test, you should use the config above in your business 
+          - [2000,1]
+          - [3000]
+
+        native-cfg:
+          bootstrap.servers: localhost:9092
+          group.id: ${spring.application.name}
+          enable.auto.commit: false # please do not change it
+          max.poll.records: 100
+          key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+          value.deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+    ons:
+      enabled: false
+      consumer:
+        ConsumerId: CID-${spring.application.name}
+        AccessKey: LTAIgF4SRgLqmidK
+        SecretKey: jLDnKxuglLIZvHZ0495sI9mnKWMvGV
+        ONSAddr: http://onsaddr-internet.aliyun.com/rocketmq/nsaddr4client-internet
+      publisher:
+        ProducerId: PID-${spring.application.name}
+        AccessKey: LTAIgF4SRgLqmidK
+        SecretKey: jLDnKxuglLIZvHZ0495sI9mnKWMvGV
+        ONSAddr: http://onsaddr-internet.aliyun.com/rocketmq/nsaddr4client-internet
+  rpc:
+    rest-ribbon:
+      enabled: true
+      provider:
+        context: /easytrans
+      consumer:
+        trx-test-service:
+          context: /easytrans
+        
+    dubbo:
+      enabled: false
+      dubbo-default-timeout: 2000
+      dubbo-zk-url: zookeeper://localhost:2181
+  test:
+    database:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/trxtest?characterEncoding=UTF-8&useSSL=false #请自行创建一个空库，具体的表会由测试代码自行生成
+      username: root
+      password: 123456
+      
+      
+
+    
+      

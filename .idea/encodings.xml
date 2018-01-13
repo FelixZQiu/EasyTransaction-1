@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/easytrans-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/easytrans-log-database-starter" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/easytrans-log-kafka-starter" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/easytrans-queue-kafka-starter" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/easytrans-queue-ons-starter" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/easytrans-rpc-dubbo-starter" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/easytrans-rpc-feign-starter" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/easytrans-starter" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
